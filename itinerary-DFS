@@ -1,0 +1,30 @@
+Input =  [["JFK", "SFO"], ["JFK", "ATL"], ["SFO", "ATL"], ["ATL", "JFK"], ["ATL", "SFO"]]
+# Output: ["JFK", "ATL", "JFK", "SFO", "ATL", "SFO"]
+
+def make_graph(Input):
+    graph = {}
+    for source, dest in Input:
+        if not graph.get(source):
+            graph[source] = [dest]
+        else:
+            graph[source].append(dest)
+    return graph
+    
+graph = make_graph(Input)
+
+for source in graph:
+    graph[source].sort(reverse=True) # when poping we will get the least once
+
+print(graph)
+output = []
+def dfs(node):
+    print('processing'+node)
+    visited = set()
+    if node not in visited:
+        output.append(node)
+        if len(graph[node]):
+            dest = graph[node].pop() if len(graph[node]) else None
+            visited.add(node)
+            dfs(dest)
+dfs('JFK')
+print(output)
