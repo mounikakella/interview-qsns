@@ -1,0 +1,24 @@
+# Given an integer array nums, return the length of the longest strictly increasing subsequence
+# Example 1:
+# Input: nums = [10,9,2,5,3,7,101,18]
+# Output: 4
+# Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
+
+
+class Solution(object):
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        all_seq = []
+        for i, num in enumerate(nums):
+            seq = []
+            seq.append(num)
+            prev = num
+            for j in nums[i+1:]:
+                if prev < j:
+                    seq.append(j)
+                    prev = j
+            all_seq.append(seq)
+        return max(map(lambda x: len(x), all_seq))
