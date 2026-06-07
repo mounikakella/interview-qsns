@@ -71,3 +71,39 @@ while(boardingCards.length>0){
     })
 }
 console.log(finalItinary)
+
+
+// using graph
+
+boardingCards = [
+    { 'source': "Barcelona", 'destination': "London", 'details': "Bus XY789" },
+    { 'source': "New York", 'destination': "Sydney", 'details': "Flight AB456" },
+    { 'source': "Rome", 'destination': "Barcelona", 'details': "Ferry ZT567", 'seat': "B12" },
+    { 'source': "London", 'destination': "New York", 'details': "Flight XY789", 'seat': "C7" },
+    { 'source': "Paris", 'destination': "Rome", 'details': "Flight AB123", 'seat': "A23" }
+];
+destinations = []
+sources = {}
+for card in boardingCards:
+    destinations.append(card['destination'])
+    sources[card['source']] = card
+
+for source in sources:
+    if source not in destinations:
+        start_city = source
+        
+queue = [start_city]
+visited = set()
+print(queue)
+print(sources)
+while queue:
+    city = queue.pop(0)
+    print(city)
+    if city in visited:
+        continue;
+    visited.add(city)
+    card = sources.get(city)
+    if city not in sources.keys():
+        break;
+    print(f"source {card['source']} destination {card['destination']}")
+    queue.append(card['destination'])
