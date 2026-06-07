@@ -28,3 +28,29 @@ def dfs(node):
             dfs(dest)
 dfs('JFK')
 print(output)
+
+
+
+print("Start small. Ship something.")
+
+flights = {
+    "Delhi":     ["Mumbai", "Kolkata"],
+    "Mumbai":    ["Delhi", "Goa", "Bangalore"],
+    "Kolkata":   ["Delhi", "Chennai"],
+    "Goa":       ["Mumbai"],
+    "Bangalore": ["Mumbai", "Chennai"],
+    "Chennai":   ["Kolkata", "Bangalore"]
+}
+
+def dfs(node, path, visited):
+    if node in visited:
+        return
+    visited.add(node)
+    path.append(node)
+    if node == 'Chennai':
+        print(path);
+    for neighbor in flights[node]:
+        dfs(neighbor, path, visited)
+    visited.remove(node)
+    path.pop()
+dfs('Delhi', [], set())
